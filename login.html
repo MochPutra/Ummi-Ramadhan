@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMMI Hotspot — Ramadhan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
+
+  :root{
+    --night-deep:   #0A1B45;
+    --night-mid:    #16244E;
+    --gold:         #E3B246;
+    --gold-soft:    #F4D98A;
+    --cream:        #FDF9EE;
+    --text-dark:    #2B3350;
+    --green-label:  #1E6B54;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--night-deep);
+    color:var(--cream);
+  }
+  a{ color:inherit; }
+
+  /* ===== NAV ===== */
+  .nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 32px;
+    background:var(--night-deep);
+    border-bottom:1px solid rgba(227,178,70,0.18);
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Lora', serif; font-weight:700; font-size:16px;
+    color:var(--gold);
+  }
+  .nav-links{
+    display:flex; align-items:center; gap:6px;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--cream);
+    font-size:14.5px;
+    font-weight:500;
+    padding:8px 16px;
+    border-radius:8px;
+  }
+  .nav-links a.active{
+    background:rgba(255,255,255,0.12);
+    font-weight:600;
+  }
+
+  /* ===== HERO (photo + content) ===== */
+  .hero{
+    position:relative;
+    background-image:
+      linear-gradient(120deg, rgba(10,27,69,0.94) 0%, rgba(10,27,69,0.72) 32%, rgba(10,27,69,0.55) 60%, rgba(10,27,69,0.85) 100%),
+      linear-gradient(180deg, rgba(10,27,69,0.15) 0%, rgba(10,27,69,0.55) 38%, var(--night-deep) 72%),
+      url("bg-hero.jpg");
+    background-size:cover;
+    background-position:center 55%;
+    background-repeat:no-repeat;
+    padding:56px 32px 40px;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    max-width:1100px;
+    margin:0 auto;
+    align-items:start;
+  }
+
+  /* ----- left column ----- */
+  .left-col{ max-width:420px; }
+
+  .info-card{
+    position:relative;
+    background:var(--cream);
+    border-radius:14px;
+    padding:20px 22px 18px;
+    color:var(--text-dark);
+    box-shadow:0 16px 34px rgba(5,14,40,0.4);
+  }
+  .info-card .label{
+    display:flex; align-items:center; gap:8px;
+    font-family:'Lora', serif; font-weight:700; font-size:14.5px;
+    color:var(--green-label); margin-bottom:8px;
+  }
+  .info-card p{ margin:0; font-size:13.5px; line-height:1.55; color:#3d4560; }
+
+  .star-badge{ position:absolute; top:-22px; right:-24px; }
+
+  .subtext{
+    font-size:13.5px; line-height:1.5; color:var(--gold-soft);
+    margin:18px 0 20px;
+    opacity:0.95;
+  }
+
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block; font-size:13px; font-weight:700;
+    color:var(--gold-soft); margin-bottom:7px;
+  }
+  .field input{
+    width:100%; padding:12px 14px; border-radius:10px;
+    border:none;
+    background:var(--cream);
+    color:var(--text-dark); font-size:14px;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    outline:none;
+  }
+  .field input::placeholder{ color:#9099b5; }
+  .field input:focus{ box-shadow:0 0 0 3px rgba(227,178,70,0.35); }
+
+  .signup-line{ font-size:12.5px; color:var(--cream); margin:0 0 16px; }
+  .signup-line a{ color:var(--gold); font-weight:700; text-decoration:none; }
+
+  .login-error{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    background:rgba(179,38,30,0.12);
+    border:1px solid rgba(179,38,30,0.5);
+    color:#ffb4ae;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12.5px;
+    line-height:1.4;
+    margin-bottom:16px;
+  }
+  .login-error svg{ flex-shrink:0; margin-top:1px; }
+
+  .login-btn{
+    width:100%; padding:13px; border:none; border-radius:10px;
+    background:linear-gradient(180deg, #E9BC55 0%, #D9A233 100%);
+    color:#5b4210; font-size:15px; font-weight:700;
+    cursor:pointer;
+  }
+
+  .footer-note{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin-top:16px; padding-top:14px;
+    border-top:1px dashed rgba(227,178,70,0.35);
+    font-size:11.5px; color:var(--cream); opacity:0.85; text-align:center;
+  }
+
+  .lantern-wrap{ margin-top:28px; }
+
+  /* ----- right column ----- */
+  .right-col{
+    text-align:center;
+    padding-top:8px;
+  }
+  .seal{ margin-bottom:18px; }
+
+  .campus-title{
+    font-family:'Lora', serif; font-weight:600; font-size:15px;
+    color:var(--cream); margin:0 0 2px;
+  }
+  .campus-city{
+    font-family:'Lora', serif; font-weight:700; font-size:32px;
+    color:var(--cream); margin:0 0 16px;
+  }
+
+  .ramadan-tag{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    background:rgba(10,27,69,0.55);
+    border:1.5px dashed rgba(227,178,70,0.6);
+    border-radius:22px;
+    padding:10px 18px;
+    margin:6px 0 26px;
+  }
+  .ramadan-tag .moon-icon{
+  display:inline-flex;
+  align-items:center;
+  flex-shrink:0;
+  }
+  .ramadan-tag .script{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:22px;
+    color:var(--gold);
+  }
+
+  /* ----- prayer schedule (dropdown) ----- */
+  .prayer-wrap{
+    margin:22px 0 26px;
+  }
+  .prayer-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    background:rgba(10,27,69,0.55);
+    border:1.5px dashed rgba(227,178,70,0.6);
+    border-radius:22px;
+    padding:10px 18px;
+    cursor:pointer;
+    font-family:'Plus Jakarta Sans', sans-serif;
+  }
+  .prayer-toggle .prayer-title{
+    font-size:12.5px;
+    letter-spacing:0.4px;
+    color:var(--gold-soft);
+    opacity:0.95;
+    margin:0;
+    text-transform:uppercase;
+  }
+  .prayer-toggle .chevron{
+    display:inline-flex;
+    transition:transform .2s ease;
+    flex-shrink:0;
+  }
+  .prayer-toggle.open .chevron{
+    transform:rotate(180deg);
+  }
+  .prayer-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease, opacity .2s ease, margin .2s ease;
+    opacity:0;
+    margin-top:0;
+  }
+  .prayer-panel.open{
+    max-height:220px;
+    opacity:1;
+    margin-top:14px;
+  }
+  .prayer-date{
+    font-size:11px;
+    color:var(--cream);
+    opacity:0.6;
+    margin:0 0 12px;
+    text-align:center;
+  }
+  .prayer-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    max-width:340px;
+    margin:0 auto;
+  }
+  .prayer-grid .p-unit{
+    background:rgba(10,27,69,0.55);
+    border:1.5px dashed rgba(227,178,70,0.6);
+    border-radius:12px;
+    padding:9px 6px;
+    text-align:center;
+  }
+  .prayer-grid .p-unit.imsak{
+    border-color:rgba(227,178,70,0.9);
+    background:rgba(227,178,70,0.1);
+  }
+  .prayer-grid .p-unit .p-time{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-size:15.5px;
+    color:var(--gold);
+    line-height:1.1;
+  }
+  .prayer-grid .p-unit .p-lbl{
+    font-size:10px;
+    color:var(--cream);
+    opacity:0.75;
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+  }
+
+  /* ----- countdown ----- */
+  .countdown-wrap{
+    margin:0 0 26px;
+  }
+  .countdown-title{
+    font-size:12.5px;
+    letter-spacing:0.4px;
+    color:var(--gold-soft);
+    opacity:0.9;
+    margin:0 0 10px;
+    text-transform:uppercase;
+  }
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+  }
+  .countdown .unit{
+    background:rgba(10,27,69,0.55);
+    border:1.5px dashed rgba(227,178,70,0.6);
+    border-radius:14px;
+    padding:10px 6px;
+    min-width:62px;
+    text-align:center;
+  }
+  .countdown .unit .num{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-size:22px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .countdown .unit .lbl{
+    font-size:10px;
+    color:var(--cream);
+    opacity:0.75;
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+  }
+
+  .address-block{
+    font-family:'Lora', serif;
+    font-size:13px;
+    line-height:1.85;
+    color:var(--cream);
+    opacity:0.92;
+  }
+  .address-block .strong{ font-weight:700; font-size:14px; }
+
+  /* ===== FOOTER BAR ===== */
+  .site-footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--cream);
+    opacity:0.55;
+    padding:16px 20px 24px;
+    background:var(--night-deep);
+  }
+
+  /* ===== RESPONSIVE (stack on narrow screens) ===== */
+  @media (max-width:860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .left-col{ max-width:100%; }
+    .right-col{ margin-top:8px; }
+    .nav-links a{ padding:6px 10px; font-size:13px; }
+  }
+  @media (max-width:520px){
+    .nav-links{ display:none; }
+    .nav-bar{ justify-content:center; }
+    .campus-city{ font-size:28px; }
+    .countdown .unit{ min-width:52px; padding:8px 4px; }
+    .countdown .unit .num{ font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<style id="modernize">
+  /* Modern overrides — keep original background/image intact */
+  :root{ --glass: rgba(255,255,255,0.06); --glass-2: rgba(255,255,255,0.04); }
+  body{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+  /* Nav — translucent glass with subtle blur */
+  .nav-bar{
+    background:linear-gradient(180deg, rgba(10,27,69,0.28), rgba(10,27,69,0.18));
+    backdrop-filter:blur(6px);
+    padding:18px 36px;
+    border-bottom:0;
+    box-shadow:0 6px 20px rgba(2,6,23,0.45);
+  }
+  .brand{ gap:14px; font-size:18px; letter-spacing:0.18px; }
+  .brand img{ width:44px; height:44px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.45); }
+  .nav-links a{ padding:8px 14px; border-radius:10px; }
+
+  /* Hero layout tweaks */
+  .hero{ padding:48px 22px; }
+  .hero-grid{ max-width:1100px; margin:0 auto; grid-gap:36px; align-items:center; }
+  .left-col{ max-width:640px; padding:18px; }
+  .right-col{ text-align:center; padding:28px; }
+
+  @media (min-width:861px){
+    .left-col{ align-self:flex-start; margin-top:-28px; }
+  }
+
+  /* Glass info card */
+  .info-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(2,6,23,0.45);
+}
+  .info-card p{ color:#3d4560; opacity:1; }
+  .label{ font-weight:600; color:var(--gold-soft); display:flex; gap:10px; align-items:center; }
+  .info-card p{ opacity:0.92; line-height:1.5; }
+
+  /* Form fields modern */
+  .field{ margin-top:14px; }
+  .field label{ display:block; margin-bottom:8px; font-size:13px; opacity:0.9; }
+  .field input{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(0,0,0,0.08);
+  background:#ffffff; color:var(--text-dark); outline:none; transition:box-shadow .18s, transform .12s;
+}
+  .field input:focus{ box-shadow:0 6px 20px rgba(14,31,66,0.5); transform:translateY(-1px); }
+
+  .signup-line{ margin-top:12px; font-size:13px; }
+
+  /* Primary action */
+  .login-btn{
+    margin-top:16px; display:inline-block; padding:12px 20px; border-radius:999px; border:none;
+    background:linear-gradient(90deg,#E3B246 0%, #F4D98A 100%); color:#071135; font-weight:700; cursor:pointer;
+    box-shadow:0 8px 20px rgba(227,178,70,0.12); transition:transform .12s ease, box-shadow .12s;
+  }
+  .login-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 40px rgba(227,178,70,0.18); }
+
+  /* Right column visuals */
+  .seal img{
+  border-radius:0;
+  filter: drop-shadow(0 20px 40px rgba(2,6,23,0.5));
+  }
+  .campus-title{ margin-top:10px; font-weight:600; color:var(--gold-soft); opacity:0.95; }
+  .campus-city{ font-family:'Lora',serif; font-size:46px; margin:6px 0 12px; color:var(--cream); }
+  .ramadan-tag{ display:inline-flex; gap:12px; align-items:center; background:rgba(10,27,69,0.55); padding:10px 14px; border-radius:999px; border:1.5px dashed rgba(227,178,70,0.6); }
+  .ramadan-tag .script{ font-family:'Dancing Script', cursive; font-size:20px; color:var(--gold); }
+
+  /* Footer & small screens */
+  .site-footer{ opacity:0.6; padding:20px 14px; }
+  @media (max-width:860px){
+    .campus-city{ font-size:36px; }
+    .hero{ padding:28px 16px; }
+    .hero-grid{ grid-template-columns:1fr; gap:24px; }
+    .left-col{ max-width:640px; width:100%; margin:0 auto; }
+    .right-col{ padding:18px 8px 8px; }
+  }
+
+  /* ===== MOBILE NAVIGATION ===== */
+  @media (max-width:700px){
+    .nav-bar{
+      flex-direction:column;
+      align-items:stretch;
+      gap:10px;
+      padding:12px 14px;
+    }
+    .brand{
+      justify-content:center;
+      font-size:16px;
+    }
+    .brand img{ width:38px; height:38px; }
+    .nav-links{
+      display:flex;
+      width:100%;
+      overflow-x:auto;
+      overflow-y:hidden;
+      justify-content:flex-start;
+      gap:4px;
+      padding:2px 0 5px;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+    }
+    .nav-links::-webkit-scrollbar{ display:none; }
+    .nav-links a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:9px 13px;
+      font-size:13px;
+    }
+    .hero{ padding:20px 14px 32px; }
+    .left-col{ padding:4px 0; }
+    .info-card{ padding:18px; }
+    .info-card .label{ font-size:13.5px; align-items:flex-start; }
+    .subtext{ font-size:13px; margin:16px 0 18px; }
+    .field{ margin-bottom:14px; }
+    .field input{ padding:13px 14px; min-height:46px; }
+    .login-btn{ width:100%; min-height:46px; margin-top:12px; }
+    .right-col{ margin-top:0; padding:12px 0 0; }
+    .seal img{ width:120px; height:120px; }
+    .campus-title{ font-size:13px; }
+    .campus-city{ font-size:30px; margin:5px 0 10px; }
+    .ramadan-tag{ max-width:100%; padding:8px 12px; }
+    .ramadan-tag .script{ font-size:18px; }
+    .countdown{ gap:6px; }
+    .countdown .unit{ min-width:56px; padding:8px 4px; }
+    .countdown .unit .num{ font-size:18px; }
+    .prayer-grid{ max-width:100%; gap:6px; }
+    .prayer-grid .p-unit .p-time{ font-size:14px; }
+    .prayer-grid .p-unit .p-lbl{ font-size:9px; }
+    .prayer-toggle{ padding:8px 14px; }
+    .prayer-toggle .prayer-title{ font-size:11.5px; }
+    .prayer-panel.open{ max-height:240px; }
+    .address-block{ font-size:11.5px; line-height:1.65; padding:0 6px; }
+    .address-block .strong{ font-size:12.5px; }
+    .site-footer{ font-size:10.5px; padding:16px 12px 20px; }
+  }
+
+  @media (max-width:380px){
+    .nav-links a{ padding:8px 11px; font-size:12px; }
+    .info-card{ padding:16px; }
+    .info-card p{ font-size:12.5px; }
+    .ramadan-tag .script{ font-size:16px; }
+    .countdown .unit{ min-width:48px; }
+    .countdown .unit .num{ font-size:16px; }
+  }
+</style>
+
+<nav class="nav-bar">
+  <div class="brand">
+    <img src="ummi-logo.png" alt="Logo UMMI" width="36" height="36" style="object-fit:contain;">
+    UMMI Hotspot
+  </div>
+  <div class="nav-links">
+    <a href="login.html" class="active">Login</a>
+    <a href="status.html">Status</a>
+    <a href="tentang.html">Tentang</a>
+    <a href="kontak.html">Kontak</a>
+    <a href="logout.html">Logout</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+      <div class="info-card">
+        <!-- <div class="star-badge">
+          <svg width="66" height="66" viewBox="0 0 66 66">
+            <g transform="translate(33,33)">
+              <path d="M0,-28 L6,-10 L26,-16 L11,-3 L28,6 L9,4 L14,24 L0,10 L-14,24 L-9,4 L-28,6 L-11,-3 L-26,-16 L-6,-10 Z"
+                    fill="#E3B246" stroke="#0A1B45" stroke-width="1"/>
+              <circle r="10" fill="#12275c" stroke="#E3B246" stroke-width="1.5"/>
+              <path d="M0,-6 L2,-1 L7,-1 L3,2 L4.5,7 L0,4 L-4.5,7 L-3,2 L-7,-1 L-2,-1 Z" fill="#E3B246"/>
+            </g>
+          </svg>
+        </div> -->
+        <div class="label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1E6B54" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Selamat Datang di Layanan UMMI Hotspot
+        </div>
+        <p>Apabila akun Anda tidak bisa login atau masa aktifnya sudah habis, silakan hubungi BTI di Gd. C06, sebelah Prodi Teknik Informatika.</p>
+      </div>
+
+      <p class="subtext">Silakan login dulu untuk menikmati akses layanan internet berbasis hotspot.</p>
+
+      <form name="login" id="login-form" action="$(link-login-only)" method="post">
+        <input type="hidden" name="dst" value="http://ummi.ac.id">
+        <input type="hidden" name="popup" value="true">
+
+        $(if error)
+        <div class="login-error">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B3261E" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>$(error)</span>
+        </div>
+        $(endif)
+
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Masukkan username"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Masukkan password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <p class="signup-line">Belum mempunyai akun hotspot? <a href="kontak.html">Klik di sini</a></p>
+
+        <button type="submit" class="login-btn" id="login-btn">Login</button>
+      </form>
+
+      <div class="footer-note">
+        Gunakan internet dengan bijak — Selamat berpuasa 🌙 · Powered by BTI
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+      <div class="seal">
+        <img src="ummi-logo.png" alt="Logo Universitas Muhammadiyah Sukabumi" width="170" height="170" style="object-fit:contain;">
+      </div>
+      <p class="campus-title">Universitas Muhammadiyah</p>
+      <h1 class="campus-city">Sukabumi</h1>
+
+      <div class="ramadan-tag">
+        <span class="moon-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34">
+            <defs>
+              <linearGradient id="moonG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F6D77A"/>
+                <stop offset="100%" stop-color="#C98A22"/>
+              </linearGradient>
+            </defs>
+            <circle cx="17" cy="17" r="16" fill="var(--night-deep)" stroke="#E3B246" stroke-width="1"/>
+            <path d="M22 6C16 6 11 11 11 17C11 23 16 28 22 28C23.6 28 25.1 27.6 26.4 27C22.8 29.8 18.3 31 14.5 29.6C8.6 27.4 5.2 21 7 15C8.5 10.3 12.9 7 18 7C19.4 7 20.8 7.3 22 7.8C22 7.2 22 6.6 22 6Z" fill="url(#moonG)"/>
+          </svg>
+        </span>
+        <span class="script">Marhaban Ya Ramadhan</span>
+      </div>
+
+      <div class="prayer-wrap">
+        <div class="prayer-toggle" id="prayer-toggle" role="button" tabindex="0" aria-expanded="false">
+          <span class="prayer-title">Jadwal Sholat &amp; Imsak</span>
+          <span class="chevron">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E3B246" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </div>
+        <div class="prayer-panel" id="prayer-panel">
+          <p class="prayer-date" id="prayer-date">Memuat tanggal…</p>
+          <div class="prayer-grid" id="prayer-schedule">
+            <div class="p-unit imsak"><div class="p-time" id="pt-imsak">--:--</div><div class="p-lbl">Imsak</div></div>
+            <div class="p-unit"><div class="p-time" id="pt-subuh">--:--</div><div class="p-lbl">Subuh</div></div>
+            <div class="p-unit"><div class="p-time" id="pt-dzuhur">--:--</div><div class="p-lbl">Dzuhur</div></div>
+            <div class="p-unit"><div class="p-time" id="pt-ashar">--:--</div><div class="p-lbl">Ashar</div></div>
+            <div class="p-unit"><div class="p-time" id="pt-maghrib">--:--</div><div class="p-lbl">Maghrib</div></div>
+            <div class="p-unit"><div class="p-time" id="pt-isya">--:--</div><div class="p-lbl">Isya</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="countdown-wrap">
+        <p class="countdown-title">Menuju Ramadhan 1449 H — 8 Februari 2027</p>
+        <div class="countdown" id="ramadan-countdown">
+          <div class="unit"><div class="num" id="cd-days">00</div><div class="lbl">Hari</div></div>
+          <div class="unit"><div class="num" id="cd-hours">00</div><div class="lbl">Jam</div></div>
+          <div class="unit"><div class="num" id="cd-mins">00</div><div class="lbl">Menit</div></div>
+          <div class="unit"><div class="num" id="cd-secs">00</div><div class="lbl">Detik</div></div>
+        </div>
+      </div>
+
+      <div class="address-block">
+        <div class="strong">Universitas Muhammadiyah Sukabumi</div>
+        <div>Jl. R. Syamsudin, S.H. No. 50, Cikole, Kec. Cikole, Kota Sukabumi, Jawa Barat</div>
+        <div>Telephone: (0266) 218345 Fax: (0266) 218342 Kode Pos: 43113</div>
+        <div>Website : ummi.ac.id</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="site-footer">© Universitas Muhammadiyah Sukabumi — BTI UMMI</div>
+
+<script>
+  (function(){
+    var targetDate = new Date("2027-02-08T00:00:00");
+
+    function pad(n){ return String(n).padStart(2, '0'); }
+
+    function updateCountdown(){
+      var now = new Date();
+      var diff = targetDate - now;
+
+      var daysEl = document.getElementById('cd-days');
+      var hoursEl = document.getElementById('cd-hours');
+      var minsEl = document.getElementById('cd-mins');
+      var secsEl = document.getElementById('cd-secs');
+
+      if(diff <= 0){
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minsEl.textContent = '00';
+        secsEl.textContent = '00';
+        var titleEl = document.querySelector('.countdown-title');
+        if(titleEl) titleEl.textContent = 'Marhaban Ya Ramadhan! 🌙';
+        return;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.textContent = days;
+      hoursEl.textContent = pad(hours);
+      minsEl.textContent = pad(mins);
+      secsEl.textContent = pad(secs);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+
+  // ===== Jadwal Sholat & Imsak — data statis offline (Kota Sukabumi) =====
+  // Dihitung dari posisi matahari (metode Kemenag RI: sudut Subuh 20°, Isya 18°),
+  // sehingga tampil tanpa perlu koneksi internet.
+  (function(){
+    var PRAYER_DATA = {"2027-02-06":{"imsak":"04:24","fajr":"04:34","dhuhr":"12:06","asr":"15:24","maghrib":"18:18","isha":"19:30"},"2027-02-07":{"imsak":"04:24","fajr":"04:34","dhuhr":"12:06","asr":"15:23","maghrib":"18:17","isha":"19:30"},"2027-02-08":{"imsak":"04:25","fajr":"04:35","dhuhr":"12:06","asr":"15:23","maghrib":"18:17","isha":"19:30"},"2027-02-09":{"imsak":"04:25","fajr":"04:35","dhuhr":"12:06","asr":"15:23","maghrib":"18:17","isha":"19:29"},"2027-02-10":{"imsak":"04:25","fajr":"04:35","dhuhr":"12:06","asr":"15:22","maghrib":"18:17","isha":"19:29"},"2027-02-11":{"imsak":"04:26","fajr":"04:36","dhuhr":"12:07","asr":"15:22","maghrib":"18:17","isha":"19:29"},"2027-02-12":{"imsak":"04:26","fajr":"04:36","dhuhr":"12:07","asr":"15:21","maghrib":"18:17","isha":"19:29"},"2027-02-13":{"imsak":"04:26","fajr":"04:36","dhuhr":"12:07","asr":"15:21","maghrib":"18:17","isha":"19:28"},"2027-02-14":{"imsak":"04:27","fajr":"04:37","dhuhr":"12:07","asr":"15:20","maghrib":"18:16","isha":"19:28"},"2027-02-15":{"imsak":"04:27","fajr":"04:37","dhuhr":"12:07","asr":"15:19","maghrib":"18:16","isha":"19:28"},"2027-02-16":{"imsak":"04:27","fajr":"04:37","dhuhr":"12:07","asr":"15:19","maghrib":"18:16","isha":"19:27"},"2027-02-17":{"imsak":"04:28","fajr":"04:38","dhuhr":"12:06","asr":"15:18","maghrib":"18:16","isha":"19:27"},"2027-02-18":{"imsak":"04:28","fajr":"04:38","dhuhr":"12:06","asr":"15:17","maghrib":"18:16","isha":"19:27"},"2027-02-19":{"imsak":"04:28","fajr":"04:38","dhuhr":"12:06","asr":"15:17","maghrib":"18:15","isha":"19:26"},"2027-02-20":{"imsak":"04:28","fajr":"04:38","dhuhr":"12:06","asr":"15:16","maghrib":"18:15","isha":"19:26"},"2027-02-21":{"imsak":"04:28","fajr":"04:38","dhuhr":"12:06","asr":"15:15","maghrib":"18:15","isha":"19:26"},"2027-02-22":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:06","asr":"15:14","maghrib":"18:15","isha":"19:25"},"2027-02-23":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:06","asr":"15:14","maghrib":"18:14","isha":"19:25"},"2027-02-24":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:06","asr":"15:13","maghrib":"18:14","isha":"19:24"},"2027-02-25":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:06","asr":"15:12","maghrib":"18:14","isha":"19:24"},"2027-02-26":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:06","asr":"15:11","maghrib":"18:13","isha":"19:24"},"2027-02-27":{"imsak":"04:29","fajr":"04:39","dhuhr":"12:05","asr":"15:10","maghrib":"18:13","isha":"19:23"},"2027-02-28":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:05","asr":"15:09","maghrib":"18:13","isha":"19:23"},"2027-03-01":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:05","asr":"15:08","maghrib":"18:12","isha":"19:22"},"2027-03-02":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:05","asr":"15:07","maghrib":"18:12","isha":"19:22"},"2027-03-03":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:05","asr":"15:06","maghrib":"18:11","isha":"19:21"},"2027-03-04":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:05","asr":"15:07","maghrib":"18:11","isha":"19:21"},"2027-03-05":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:04","asr":"15:07","maghrib":"18:11","isha":"19:20"},"2027-03-06":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:04","asr":"15:08","maghrib":"18:10","isha":"19:20"},"2027-03-07":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:04","asr":"15:08","maghrib":"18:10","isha":"19:20"},"2027-03-08":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:04","asr":"15:08","maghrib":"18:09","isha":"19:19"},"2027-03-09":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:03","asr":"15:09","maghrib":"18:09","isha":"19:19"},"2027-03-10":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:03","asr":"15:09","maghrib":"18:09","isha":"19:18"},"2027-03-11":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:03","asr":"15:09","maghrib":"18:08","isha":"19:18"},"2027-03-12":{"imsak":"04:30","fajr":"04:40","dhuhr":"12:03","asr":"15:10","maghrib":"18:08","isha":"19:17"}};
+
+    var dateEl = document.getElementById('prayer-date');
+    var bulanID = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    var hariID = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+
+    function isoToday(){
+      var d = new Date();
+      var y = d.getFullYear();
+      var m = String(d.getMonth()+1).padStart(2,'0');
+      var day = String(d.getDate()).padStart(2,'0');
+      return { iso: y+"-"+m+"-"+day, dateObj: d };
+    }
+
+    function formatTanggal(d){
+      return hariID[d.getDay()] + ", " + d.getDate() + " " + bulanID[d.getMonth()] + " " + d.getFullYear();
+    }
+
+    function setTime(id, val){
+      var el = document.getElementById(id);
+      if(el) el.textContent = val || '--:--';
+    }
+
+    function tampilkanJadwal(entry, labelTanggal){
+      dateEl.textContent = labelTanggal;
+      setTime('pt-imsak', entry.imsak);
+      setTime('pt-subuh', entry.fajr);
+      setTime('pt-dzuhur', entry.dhuhr);
+      setTime('pt-ashar', entry.asr);
+      setTime('pt-maghrib', entry.maghrib);
+      setTime('pt-isya', entry.isha);
+    }
+
+    function loadJadwalSholat(){
+      var today = isoToday();
+      var entry = PRAYER_DATA[today.iso];
+
+      if(entry){
+        tampilkanJadwal(entry, formatTanggal(today.dateObj));
+      } else {
+        // Di luar rentang data (mis. sebelum/sesudah Ramadhan) —
+        // tampilkan jadwal hari pertama sbg contoh & beri keterangan.
+        var keys = Object.keys(PRAYER_DATA).sort();
+        var fallbackKey = today.dateObj < new Date(keys[0]) ? keys[0] : keys[keys.length-1];
+        tampilkanJadwal(PRAYER_DATA[fallbackKey], formatTanggal(today.dateObj) + ' (contoh jadwal ' + fallbackKey + ')');
+      }
+    }
+
+    loadJadwalSholat();
+  })();
+
+  // ===== Toggle dropdown jadwal sholat =====
+  (function(){
+    var toggleBtn = document.getElementById('prayer-toggle');
+    var panel = document.getElementById('prayer-panel');
+    if(!toggleBtn || !panel) return;
+
+    function togglePanel(){
+      var isOpen = panel.classList.toggle('open');
+      toggleBtn.classList.toggle('open', isOpen);
+      toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    toggleBtn.addEventListener('click', togglePanel);
+    toggleBtn.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        togglePanel();
+      }
+    });
+  })();
+
+  // ===== Loading state saat submit login =====
+  (function(){
+    var form = document.getElementById('login-form');
+    var btn = document.getElementById('login-btn');
+    if(!form || !btn) return;
+
+    form.addEventListener('submit', function(){
+      var user = document.getElementById('username');
+      var pass = document.getElementById('password');
+      if(user && !user.value.trim()) return;
+      if(pass && !pass.value.trim()) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sedang masuk...';
+      btn.style.opacity = '0.8';
+      btn.style.cursor = 'wait';
+    });
+  })();
+</script>
+
+</body>
+</html>

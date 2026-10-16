@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Status UMMI Hotspot</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
+
+    :root {
+      --night-deep: #0A1B45;
+      --night-mid: #16244E;
+      --gold: #E3B246;
+      --gold-soft: #F4D98A;
+      --cream: #FDF9EE;
+      --text-dark: #2B3350;
+      --green-label: #1E6B54;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--cream);
+      background:
+        linear-gradient(
+          120deg,
+          rgba(10,27,69,0.95),
+          rgba(10,27,69,0.75)
+        ),
+        url('bg-hero.jpg') center/cover fixed no-repeat;
+    }
+
+   /* ================= NAVBAR ================= */
+
+    .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 36px;
+
+    background: linear-gradient(
+        180deg,
+        rgba(10,27,69,0.28),
+        rgba(10,27,69,0.18)
+    );
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    border-bottom: 0;
+    box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+
+    position: relative;
+    z-index: 10;
+    }
+
+    .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.18px;
+    color: var(--gold);
+
+    white-space: nowrap;
+    }
+
+    .brand img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    }
+
+    .nav-links a {
+    text-decoration: none;
+    color: var(--cream);
+
+    font-size: 14.5px;
+    font-weight: 500;
+
+    padding: 8px 14px;
+    border-radius: 10px;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+    }
+
+    .nav-links a:hover {
+    background: rgba(255,255,255,0.08);
+    }
+
+    .nav-links a.active {
+    background: rgba(255,255,255,0.12);
+    font-weight: 600;
+    }
+        /* ================= CONTENT ================= */
+
+    .page {
+      min-height: calc(100vh - 110px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+    }
+
+    .status-container {
+      width: 100%;
+      max-width: 850px;
+    }
+
+    .status-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .status-header h1 {
+      margin: 0 0 8px;
+      font-family: 'Lora', serif;
+      font-size: 32px;
+      color: var(--cream);
+    }
+
+    .status-header p {
+      margin: 0;
+      color: var(--gold-soft);
+      font-size: 14px;
+    }
+
+    /* ================= STATUS CARD ================= */
+
+    .status-card {
+      background: rgba(10,27,69,0.90);
+      border: 1px solid rgba(227,178,70,0.25);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .connection {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      padding: 15px 18px;
+      border-radius: 12px;
+      background: rgba(30,107,84,0.18);
+      border: 1px solid rgba(30,107,84,0.4);
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #35C47A;
+      box-shadow: 0 0 10px rgba(53,196,122,0.7);
+    }
+
+    .connection strong {
+      color: var(--cream);
+      font-size: 14px;
+    }
+
+    .connection span {
+      color: #B8C5D8;
+      font-size: 12px;
+    }
+
+    /* ================= INFO GRID ================= */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .info-label {
+      color: var(--gold-soft);
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .info-value {
+      color: var(--cream);
+      font-size: 15px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    /* ================= TRAFFIC ================= */
+
+    .traffic-title {
+      margin-top: 28px;
+      margin-bottom: 15px;
+      color: var(--gold);
+      font-family: 'Lora', serif;
+      font-size: 18px;
+    }
+
+    .traffic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .traffic-box {
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .traffic-box .label {
+      font-size: 12px;
+      color: #B8C5D8;
+      margin-bottom: 7px;
+    }
+
+    .traffic-box .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-soft);
+    }
+
+    /* ================= BUTTON ================= */
+
+    .logout-area {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .logout-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 10px;
+      background: var(--gold);
+      color: var(--night-deep);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    /* ================= FOOTER ================= */
+
+    .site-footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 11px;
+      color: rgba(253,249,238,0.65);
+      background: var(--night-deep);
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 700px) {
+
+      .nav-bar {
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .brand {
+        justify-content: center;
+        font-size: 16px;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .nav-links {
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        gap: 4px;
+        padding: 2px 0 5px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 9px 13px;
+        font-size: 13px;
+      }
+
+      .page {
+        padding: 35px 15px;
+      }
+
+      .status-header h1 {
+        font-size: 26px;
+      }
+
+      .status-card {
+        padding: 20px;
+      }
+
+      .info-grid,
+      .traffic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+
+  <nav class="nav-bar">
+
+    <div class="brand">
+      <img src="ummi-logo.png" alt="Logo UMMI" width="36" height="36" style="object-fit:contain;">
+      UMMI Hotspot
+    </div>
+
+    <div class="nav-links">
+      <a href="login.html">Login</a>
+
+      <a href="status.html" class="active">
+        Status
+      </a>
+
+      <a href="tentang.html">
+        Tentang
+      </a>
+
+      <a href="kontak.html">
+        Kontak
+      </a>
+
+      <a href="$(link-logout)">
+        Logout
+      </a>
+    </div>
+
+  </nav>
+
+
+  <!-- ================= CONTENT ================= -->
+
+  <main class="page">
+
+    <div class="status-container">
+
+      <div class="status-header">
+
+        <h1>Status Koneksi</h1>
+
+        <p>
+          Informasi koneksi internet UMMI Hotspot Anda
+        </p>
+
+      </div>
+
+
+      <div class="status-card">
+
+        <!-- CONNECTION STATUS -->
+
+        <div class="connection">
+
+          <div class="status-dot"></div>
+
+          <div>
+            <strong>Terhubung ke UMMI Hotspot</strong>
+            <br>
+            <span>Koneksi internet sedang aktif</span>
+          </div>
+
+        </div>
+
+
+        <!-- USER INFORMATION -->
+
+        <div class="info-grid">
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Username
+            </div>
+
+            <div class="info-value">
+              $(username)
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              IP Address
+            </div>
+
+            <div class="info-value">
+              $(ip)
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              MAC Address
+            </div>
+
+            <div class="info-value">
+              $(mac)
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Lama Terhubung
+            </div>
+
+            <div class="info-value">
+              $(uptime)
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Sisa Waktu
+            </div>
+
+            <div class="info-value">
+              $(session-time-left)
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Domain Hotspot
+            </div>
+
+            <div class="info-value">
+              $(domain)
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TRAFFIC -->
+
+        <div class="traffic-title">
+          Penggunaan Internet
+        </div>
+
+
+        <div class="traffic-grid">
+
+          <div class="traffic-box">
+
+            <div class="label">
+              Download
+            </div>
+
+            <div class="value">
+              $(bytes-in-nice)
+            </div>
+
+          </div>
+
+
+          <div class="traffic-box">
+
+            <div class="label">
+              Upload
+            </div>
+
+            <div class="value">
+              $(bytes-out-nice)
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout-area">
+
+          <a
+            href="$(link-logout)"
+            class="logout-btn"
+          >
+            Logout
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <footer class="site-footer">
+    © Universitas Muhammadiyah Sukabumi — BTI UMMI
+  </footer>
+
+</body>
+</html>

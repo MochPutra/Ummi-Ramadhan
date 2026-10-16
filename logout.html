@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMMI Hotspot — Logout</title>
+<style id="modernize">
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
+
+  :root{
+    --night-deep:   #0A1B45;
+    --night-mid:    #16244E;
+    --gold:         #E3B246;
+    --gold-soft:    #F4D98A;
+    --cream:        #FDF9EE;
+    --text-dark:    #2B3350;
+    --green-label:  #1E6B54;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--night-deep);
+    color:var(--cream);
+  }
+  a{ color:inherit; }
+
+  /* ===== NAV ===== */
+  .nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 32px;
+    background:var(--night-deep);
+    border-bottom:1px solid rgba(227,178,70,0.18);
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Lora', serif; font-weight:700; font-size:16px;
+    color:var(--gold);
+  }
+  .nav-links{
+    display:flex; align-items:center; gap:6px;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--cream);
+    font-size:14.5px;
+    font-weight:500;
+    padding:8px 16px;
+    border-radius:8px;
+  }
+  .nav-links a.active{
+    background:rgba(255,255,255,0.12);
+    font-weight:600;
+  }
+
+  /* ===== HERO (photo + content) ===== */
+  .hero{
+    position:relative;
+    background-image:
+      linear-gradient(120deg, rgba(10,27,69,0.94) 0%, rgba(10,27,69,0.72) 32%, rgba(10,27,69,0.55) 60%, rgba(10,27,69,0.85) 100%),
+      linear-gradient(180deg, rgba(10,27,69,0.15) 0%, rgba(10,27,69,0.55) 38%, var(--night-deep) 72%),
+      url("bg-hero.jpg");
+    background-size:cover;
+    background-position:center 55%;
+    background-repeat:no-repeat;
+    padding:56px 32px 40px;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    max-width:1100px;
+    margin:0 auto;
+    align-items:start;
+  }
+
+  /* ----- left column ----- */
+  .left-col{ max-width:420px; }
+
+  .info-card{
+    position:relative;
+    background:var(--cream);
+    border-radius:14px;
+    padding:20px 22px 18px;
+    color:var(--text-dark);
+    box-shadow:0 16px 34px rgba(5,14,40,0.4);
+  }
+  .info-card .label{
+    display:flex; align-items:center; gap:8px;
+    font-family:'Lora', serif; font-weight:700; font-size:14.5px;
+    color:var(--green-label); margin-bottom:8px;
+  }
+  .info-card p{ margin:0; font-size:13.5px; line-height:1.55; color:#3d4560; }
+
+  .star-badge{ position:absolute; top:-22px; right:-24px; }
+
+  .subtext{
+    font-size:13.5px; line-height:1.5; color:var(--gold-soft);
+    margin:18px 0 20px;
+    opacity:0.95;
+  }
+
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block; font-size:13px; font-weight:700;
+    color:var(--gold-soft); margin-bottom:7px;
+  }
+  .field input{
+    width:100%; padding:12px 14px; border-radius:10px;
+    border:none;
+    background:var(--cream);
+    color:var(--text-dark); font-size:14px;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    outline:none;
+  }
+  .field input::placeholder{ color:#9099b5; }
+  .field input:focus{ box-shadow:0 0 0 3px rgba(227,178,70,0.35); }
+
+  .signup-line{ font-size:12.5px; color:var(--cream); margin:0 0 16px; }
+  .signup-line a{ color:var(--gold); font-weight:700; text-decoration:none; }
+
+  .login-btn{
+    width:100%; padding:13px; border:none; border-radius:10px;
+    background:linear-gradient(180deg, #E9BC55 0%, #D9A233 100%);
+    color:#5b4210; font-size:15px; font-weight:700;
+    cursor:pointer;
+  }
+
+  .footer-note{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin-top:16px; padding-top:14px;
+    border-top:1px dashed rgba(227,178,70,0.35);
+    font-size:11.5px; color:var(--cream); opacity:0.85; text-align:center;
+  }
+
+  .lantern-wrap{ margin-top:28px; }
+
+  /* ----- right column ----- */
+  .right-col{
+    text-align:center;
+    padding-top:8px;
+  }
+  .seal{ margin-bottom:18px; }
+
+  .campus-title{
+    font-family:'Lora', serif; font-weight:600; font-size:15px;
+    color:var(--cream); margin:0 0 2px;
+  }
+  .campus-city{
+    font-family:'Lora', serif; font-weight:700; font-size:32px;
+    color:var(--cream); margin:0 0 16px;
+  }
+
+  .ramadan-tag{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    background:rgba(10,27,69,0.55);
+    border:1.5px dashed rgba(227,178,70,0.6);
+    border-radius:22px;
+    padding:10px 18px;
+    margin:6px 0 26px;
+  }
+  .ramadan-tag .moon-icon{
+  display:inline-flex;
+  align-items:center;
+  flex-shrink:0;
+  }
+  .ramadan-tag .script{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:22px;
+    color:var(--gold);
+  }
+
+  .address-block{
+    font-family:'Lora', serif;
+    font-size:13px;
+    line-height:1.85;
+    color:var(--cream);
+    opacity:0.92;
+  }
+  .address-block .strong{ font-weight:700; font-size:14px; }
+
+  /* ===== FOOTER BAR ===== */
+  .site-footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--cream);
+    opacity:0.55;
+    padding:16px 20px 24px;
+    background:var(--night-deep);
+  }
+
+  /* ===== RESPONSIVE (stack on narrow screens) ===== */
+  @media (max-width:860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .left-col{ max-width:100%; }
+    .right-col{ margin-top:8px; }
+    .nav-links a{ padding:6px 10px; font-size:13px; }
+  }
+  @media (max-width:520px){
+    .nav-links{ display:none; }
+    .nav-bar{ justify-content:center; }
+    .campus-city{ font-size:28px; }
+  }
+
+
+  /* Modern overrides — keep original background/image intact */
+  :root{ --glass: rgba(255,255,255,0.06); --glass-2: rgba(255,255,255,0.04); }
+  body{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+  /* Nav — translucent glass with subtle blur */
+  .nav-bar{
+    background:linear-gradient(180deg, rgba(10,27,69,0.28), rgba(10,27,69,0.18));
+    backdrop-filter:blur(6px);
+    padding:18px 36px;
+    border-bottom:0;
+    box-shadow:0 6px 20px rgba(2,6,23,0.45);
+  }
+  .brand{ gap:14px; font-size:18px; letter-spacing:0.18px; }
+  .brand img{ width:44px; height:44px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.45); }
+  .nav-links a{ padding:8px 14px; border-radius:10px; }
+
+  /* Hero layout tweaks */
+  .hero{ padding:48px 22px; }
+  .hero-grid{ max-width:1100px; margin:0 auto; grid-gap:36px; align-items:center; }
+  .left-col{ max-width:640px; padding:18px; }
+  .right-col{ text-align:center; padding:28px; }
+
+  /* Glass info card */
+  .info-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(2,6,23,0.45);
+}
+  .info-card p{ color:#3d4560; opacity:1; }
+  .label{ font-weight:600; color:var(--gold-soft); display:flex; gap:10px; align-items:center; }
+  .info-card p{ opacity:0.92; line-height:1.5; }
+
+  /* Form fields modern */
+  .field{ margin-top:14px; }
+  .field label{ display:block; margin-bottom:8px; font-size:13px; opacity:0.9; }
+  .field input{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(0,0,0,0.08);
+  background:#ffffff; color:var(--text-dark); outline:none; transition:box-shadow .18s, transform .12s;
+}
+  .field input:focus{ box-shadow:0 6px 20px rgba(14,31,66,0.5); transform:translateY(-1px); }
+
+  .signup-line{ margin-top:12px; font-size:13px; }
+
+  /* Primary action */
+  .login-btn{
+    margin-top:16px; display:inline-block; padding:12px 20px; border-radius:999px; border:none;
+    background:linear-gradient(90deg,#E3B246 0%, #F4D98A 100%); color:#071135; font-weight:700; cursor:pointer;
+    box-shadow:0 8px 20px rgba(227,178,70,0.12); transition:transform .12s ease, box-shadow .12s;
+  }
+  .login-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 40px rgba(227,178,70,0.18); }
+
+  /* Right column visuals */
+  .seal img{
+  border-radius:0;
+  filter: drop-shadow(0 20px 40px rgba(2,6,23,0.5));
+  }
+  .campus-title{ margin-top:10px; font-weight:600; color:var(--gold-soft); opacity:0.95; }
+  .campus-city{ font-family:'Lora',serif; font-size:46px; margin:6px 0 12px; color:var(--cream); }
+  .ramadan-tag{ display:inline-flex; gap:12px; align-items:center; background:rgba(255,255,255,0.02); padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.04); }
+  .ramadan-tag .script{ font-family:'Dancing Script', cursive; font-size:20px; color:var(--gold); }
+
+  /* Footer & small screens */
+  .site-footer{ opacity:0.6; padding:20px 14px; }
+  @media (max-width:860px){
+    .campus-city{ font-size:36px; }
+    .hero{ padding:28px 16px; }
+    .hero-grid{ grid-template-columns:1fr; gap:24px; }
+    .left-col{ max-width:640px; width:100%; margin:0 auto; }
+    .right-col{ padding:18px 8px 8px; }
+  }
+
+  /* ===== MOBILE NAVIGATION ===== */
+  @media (max-width:700px){
+    .nav-bar{
+      flex-direction:column;
+      align-items:stretch;
+      gap:10px;
+      padding:12px 14px;
+    }
+    .brand{
+      justify-content:center;
+      font-size:16px;
+    }
+    .brand img{ width:38px; height:38px; }
+    .nav-links{
+      display:flex;
+      width:100%;
+      overflow-x:auto;
+      overflow-y:hidden;
+      justify-content:flex-start;
+      gap:4px;
+      padding:2px 0 5px;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+    }
+    .nav-links::-webkit-scrollbar{ display:none; }
+    .nav-links a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:9px 13px;
+      font-size:13px;
+    }
+    .hero{ padding:26px 14px 32px; }
+    .left-col{ padding:8px 0; }
+    .info-card{ padding:18px; }
+    .info-card .label{ font-size:13.5px; align-items:flex-start; }
+    .subtext{ font-size:13px; margin:16px 0 18px; }
+    .field{ margin-bottom:14px; }
+    .field input{ padding:13px 14px; min-height:46px; }
+    .login-btn{ width:100%; min-height:46px; margin-top:12px; }
+    .right-col{ margin-top:0; padding:12px 0 0; }
+    .seal img{ width:120px; height:120px; }
+    .campus-title{ font-size:13px; }
+    .campus-city{ font-size:30px; margin:5px 0 10px; }
+    .ramadan-tag{ max-width:100%; padding:8px 12px; }
+    .ramadan-tag .script{ font-size:18px; }
+    .address-block{ font-size:11.5px; line-height:1.65; padding:0 6px; }
+    .address-block .strong{ font-size:12.5px; }
+    .site-footer{ font-size:10.5px; padding:16px 12px 20px; }
+  }
+
+  @media (max-width:380px){
+    .nav-links a{ padding:8px 11px; font-size:12px; }
+    .info-card{ padding:16px; }
+    .info-card p{ font-size:12.5px; }
+    .ramadan-tag .script{ font-size:16px; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<nav class="nav-bar">
+  <div class="brand">
+    <img src="ummi-logo.png" alt="Logo UMMI" width="36" height="36" style="object-fit:contain;">
+    UMMI Hotspot
+  </div>
+  <div class="nav-links">
+    <a href="login.html">Login</a>
+    <a href="status.html">Status</a>
+    <a href="tentang.html">Tentang</a>
+    <a href="kontak.html">Kontak</a>
+    <a href="logout.html" class="active">Logout</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+      <div class="info-card">
+        <div class="label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1E6B54" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-linecap="round" stroke-linejoin="round"/><path d="m16 17 5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sesi Aktif Anda
+        </div>
+        <p>
+          Username&nbsp;&nbsp;: <strong>$(username)</strong><br>
+          Alamat IP&nbsp;&nbsp;&nbsp;&nbsp;: $(ip)<br>
+          Lama Koneksi : $(uptime)<br>
+          Data Terpakai : $(bytes-in-nice) diterima / $(bytes-out-nice) dikirim
+        </p>
+      </div>
+
+      <p class="subtext">Akhiri sesi hotspot Anda dengan aman agar kuota dan akses tidak digunakan oleh orang lain. Klik tombol di bawah untuk logout.</p>
+
+      <form name="logout" action="$(link-logout)">
+        <button type="submit" class="login-btn">Logout Sekarang</button>
+      </form>
+
+      <p class="signup-line" style="margin-top:14px;">Ingin tetap terhubung? <a href="status.html">Kembali ke halaman Status</a></p>
+
+      <div class="footer-note" style="margin-top:8px; border-top:1px dashed rgba(227,178,70,0.35); padding-top:14px;">
+        Gunakan internet dengan bijak — Selamat berpuasa 🌙 · Powered by BTI
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+      <div class="seal">
+        <img src="ummi-logo.png" alt="Logo Universitas Muhammadiyah Sukabumi" width="170" height="170" style="object-fit:contain;">
+      </div>
+      <p class="campus-title">Universitas Muhammadiyah</p>
+      <h1 class="campus-city">Sukabumi</h1>
+
+      <div class="ramadan-tag">
+        <span class="moon-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34">
+            <defs>
+              <linearGradient id="moonG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F6D77A"/>
+                <stop offset="100%" stop-color="#C98A22"/>
+              </linearGradient>
+            </defs>
+            <circle cx="17" cy="17" r="16" fill="var(--night-deep)" stroke="#E3B246" stroke-width="1"/>
+            <path d="M22 6C16 6 11 11 11 17C11 23 16 28 22 28C23.6 28 25.1 27.6 26.4 27C22.8 29.8 18.3 31 14.5 29.6C8.6 27.4 5.2 21 7 15C8.5 10.3 12.9 7 18 7C19.4 7 20.8 7.3 22 7.8C22 7.2 22 6.6 22 6Z" fill="url(#moonG)"/>
+          </svg>
+        </span>
+        <span class="script">Marhaban Ya Ramadhan</span>
+      </div>
+
+      <div class="address-block">
+        <div class="strong">Universitas Muhammadiyah Sukabumi</div>
+        <div>Jl. R. Syamsudin, S.H. No. 50, Cikole, Kec. Cikole, Kota Sukabumi, Jawa Barat</div>
+        <div>Telephone: (0266) 218345 Fax: (0266) 218342 Kode Pos: 43113</div>
+        <div>Website : ummi.ac.id</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="site-footer">© Universitas Muhammadiyah Sukabumi — BTI UMMI</div>
+
+</body>
+</html>

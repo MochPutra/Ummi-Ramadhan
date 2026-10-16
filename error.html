@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMMI Hotspot — Kesalahan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --night-deep:   #0A1B45;
+    --gold:         #E3B246;
+    --cream:        #FDF9EE;
+    --text-dark:    #2B3350;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--night-deep);
+    color:var(--cream);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  a{ color:inherit; }
+
+  .nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 32px;
+    background:var(--night-deep);
+    border-bottom:1px solid rgba(227,178,70,0.18);
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Lora', serif; font-weight:700; font-size:16px;
+    color:var(--gold);
+  }
+  .nav-links{ display:flex; align-items:center; gap:6px; }
+  .nav-links a{
+    text-decoration:none; color:var(--cream); font-size:14.5px;
+    font-weight:500; padding:8px 16px; border-radius:8px;
+  }
+  .nav-links a.active{ background:rgba(255,255,255,0.12); font-weight:600; }
+
+  .wrap{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    background:
+      linear-gradient(120deg, rgba(10,27,69,0.94) 0%, rgba(10,27,69,0.8) 60%, rgba(10,27,69,0.94) 100%),
+      url("background-hero.jpg");
+    background-size:cover;
+    background-position:center;
+  }
+
+  .card{
+    background:var(--cream);
+    color:var(--text-dark);
+    border-radius:20px;
+    padding:40px 36px;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .icon{
+    width:56px; height:56px; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%; background:rgba(220,80,80,0.12);
+  }
+  h1{ font-family:'Lora', serif; font-size:21px; margin:0 0 10px; }
+  .mt-error{ font-size:14px; line-height:1.5; margin:0 0 26px; color:#B23B3B; font-weight:600; }
+  .mt-error:empty::before{ content:"Sesi login tidak valid atau terjadi kendala jaringan."; color:var(--text-dark); font-weight:500; }
+
+  .back-btn{
+    display:inline-block;
+    background:var(--night-deep);
+    color:var(--gold-soft, var(--gold));
+    text-decoration:none;
+    font-weight:600;
+    padding:13px 26px;
+    border-radius:12px;
+    transition:transform .12s ease, box-shadow .12s;
+  }
+  .back-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,0.25); }
+
+  .site-footer{ text-align:center; padding:16px; font-size:12px; opacity:0.75; }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="brand">
+    <img src="ummi-logo.png" alt="Logo UMMI" width="36" height="36" style="object-fit:contain;">
+    UMMI Hotspot
+  </div>
+  <div class="nav-links">
+    <a href="./login.html">Login</a>
+    <a href="$(link-status)">Status</a>
+    <a href="./tentang.html">Tentang</a>
+    <a href="./kontak.html">Kontak</a>
+    <a href="$(link-logout)">Logout</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="card">
+    <div class="icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B23B3B" stroke-width="2">
+        <circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/>
+      </svg>
+    </div>
+    <h1>Login Gagal</h1>
+    <p class="mt-error">$(error)</p>
+    <a class="back-btn" href="$(link-login)">Kembali ke Halaman Login</a>
+  </div>
+</div>
+
+<div class="site-footer">© Universitas Muhammadiyah Sukabumi — BTI UMMI</div>
+
+</body>
+</html>
